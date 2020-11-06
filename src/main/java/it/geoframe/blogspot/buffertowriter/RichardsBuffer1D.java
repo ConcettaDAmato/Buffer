@@ -1,7 +1,7 @@
 /*
  * GNU GPL v3 License
  *
- * Copyright 2016 Marialaura Bancheri
+ * Copyright 2016 Niccolo` Tubini
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package buffertowriter;
+package it.geoframe.blogspot.buffertowriter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -33,151 +33,105 @@ import oms3.annotations.*;
 //@Status(Status.CERTIFIED)
 @License("General Public License Version 3 (GPLv3)")
 
-public class ExcessIceBuffer1D {
-
-	@Description("Varible to store")
+public class RichardsBuffer1D {
+	
+	@Description("Variable to store")
 	@In 
 	@Unit ("-")
 	public ArrayList<double[]> inputVariable;
-
+	
 	@Description("Date at which the varible is computed")
 	@In 
 	@Unit ("YYYY-MM-DD HH:mm")
 	public String inputDate;
-
+	
 	@Description("Boolean value controlling the buffer component")
 	@In 
 	@Unit ("-")
 	public boolean doProcessBuffer;
 	
-	
 	@In 
 	public int writeFrequency = 1;
-
-	//	@Description("Spatial coordinate: is the position of the centroids ")
-	//	@In 
-	//	@Unit ("m")
-	//	public double[] inputSpatialCoordinate;
-	//	
-	//	@Description("Dual spatial coordinate: is the position of volumes' interfaces ")
-	//	@In 
-	//	@Unit ("m")
-	//	public double[] inputDualSpatialCoordinate;
-
-
+	
 	@Description()
 	@Out
 	@Unit ()
 	public LinkedHashMap<String,ArrayList<double[]>> myVariable = new LinkedHashMap<String,ArrayList<double[]>>(); // consider the opportunity to save varibale as float instead of double
-
-	@Description()
-	@Out
-	@Unit ()
-	public double[] mySpatialCoordinate;
-
-	@Description()
-	@Out
-	@Unit ()
-	public double[] myDualSpatialCoordinate;
-
+	
+	
 	@Description("")
-	int step=0;
-
-	ArrayList<double[]> tempVariable;
-
-
-
+	private int step=0;
+	
+	private ArrayList<double[]> tempVariable;
+	
+	
+	
 	@Execute
 	public void solve() {
-//		System.out.println("Buffer1D step:" + step);
+
 		if(step==0){
-
-			//		mySpatialCoordinate = inputSpatialCoordinate;
-			//		myDualSpatialCoordinate = inputDualSpatialCoordinate;
-
+			
 			tempVariable = new ArrayList<double[]>();
-			//System.out.println(mySpatialCoordinate.toString());
-
+		
 		}
 		
-
 		if( ((step-1)%writeFrequency) == 0 || step == 1) {
 //			System.out.println("Buffer1D clear");
 
 			myVariable.clear();
 
 		}
-
+		
 		if(doProcessBuffer== true) {
-//			System.out.println("Buffer1D doProcessBuffer:" + doProcessBuffer);
-
-			// z
+			// water suction values
 			tempVariable.add(inputVariable.get(0).clone());
 
-			// temperature
+			// thetas
 			tempVariable.add(inputVariable.get(1).clone());
-			//		for(int i=0; i<tempVariable.get(1).length; i++) {
-			//			System.out.println(tempVariable.get(1)[i]);
-			//		}
-			// theta_w
+			
+			// water volume
 			tempVariable.add(inputVariable.get(2).clone());
 
-			// theta_i
+			// Darcy velocities
 			tempVariable.add(inputVariable.get(3).clone());
 
-			// water excess volume
+			// Darcy velocities due to capillary gradient
 			tempVariable.add(inputVariable.get(4).clone());
 
-			// ice excess volume
+			// Darcy velocities due to gravity gradient
 			tempVariable.add(inputVariable.get(5).clone());
 
-			// errorEnergy
+			// pore velocities 
 			tempVariable.add(inputVariable.get(6).clone());
 
-			// errorVolume
+			// celerities
 			tempVariable.add(inputVariable.get(7).clone());
 
-			// waterFromNirvana
+			// kinematic ratio
 			tempVariable.add(inputVariable.get(8).clone());
 
-			// waterToNirvana
+			//ETs i.e. transpired stressed water
 			tempVariable.add(inputVariable.get(9).clone());
-
-			// energyFromNirvana
+			
+			// errorVolume
 			tempVariable.add(inputVariable.get(10).clone());
 
-			// energyToNirvana
+			// top boundary condition value
 			tempVariable.add(inputVariable.get(11).clone());
 
-			// surfaceElevation
+			// bottom boundary condition value
 			tempVariable.add(inputVariable.get(12).clone());
-			
-			// KMAX
+
+			// surface run-off
 			tempVariable.add(inputVariable.get(13).clone());
 
-			// heat flux at the top of the  domain 
-			tempVariable.add(inputVariable.get(14).clone());
-
-			// heat flux at the bottom of the  domain
-			tempVariable.add(inputVariable.get(15).clone());
-			
-			// soil erosion deposition
-			tempVariable.add(inputVariable.get(16).clone());
-			
-			// ice erosion deposition
-			tempVariable.add(inputVariable.get(17).clone());
-
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
-			//System.out.println(myVariable.size() +"       "+ myVariable.keySet());
-			//System.out.println(myVariable.toString());
+
 			tempVariable.clear();
 		}
 		step++;
-//		System.out.println("Buffer1D completed step: "+step);
-
 		
-
 	}
-
+	
 
 }

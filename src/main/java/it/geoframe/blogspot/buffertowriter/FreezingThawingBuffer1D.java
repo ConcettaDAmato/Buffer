@@ -1,7 +1,7 @@
 /*
  * GNU GPL v3 License
  *
- * Copyright 2016 Niccolo` Tubini
+ * Copyright 2019 Niccolò Tubini
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,121 +17,108 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package buffertowriter;
+package it.geoframe.blogspot.buffertowriter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import oms3.annotations.*;
 
-@Description("Buffer for 1D Richards simulation.")
+@Description("Buffer for 1D freezing thawing simulation. This component temporarily the output and then passes them to "
+		+ "the writer component")
 @Documentation("")
-@Author(name = "Niccolo' Tubini, Riccardo Rigon", contact = "tubini.niccolo@gmail.com")
-@Keywords("Hydrology, Richards, Infiltration")
-//@Label(JGTConstants.HYDROGEOMORPHOLOGY)
-//@Name("shortradbal")
-//@Status(Status.CERTIFIED)
+@Author(name = "Niccolo' Tubini, Stephan Gruber, Riccardo Rigon", contact = "tubini.niccolo@gmail.com")
+@Keywords("Freezing soil, heat equation, 1D problem")
+@Label("GEOframe.BUFFERFORWRITING")
+@Name("FreezingThawingBuffer1D")
+@Status(Status.CERTIFIED)
 @License("General Public License Version 3 (GPLv3)")
 
-public class RichardsBuffer1D {
-	
-	@Description("Variable to store")
+public class FreezingThawingBuffer1D {
+
+	@Description("Output variables of the current time step")
 	@In 
 	@Unit ("-")
 	public ArrayList<double[]> inputVariable;
-	
-	@Description("Date at which the varible is computed")
+
+	@Description("Date of the current time step")
 	@In 
 	@Unit ("YYYY-MM-DD HH:mm")
 	public String inputDate;
-	
+
 	@Description("Boolean value controlling the buffer component")
 	@In 
 	@Unit ("-")
 	public boolean doProcessBuffer;
 	
+	@Description("Numeber of time step every which the ouptut is written to the disk."
+			+ "Default is 1")
 	@In 
 	public int writeFrequency = 1;
-	
-	@Description()
+
+
+	@Description("Output variable. This variable is passed to the writer component")
 	@Out
 	@Unit ()
-	public LinkedHashMap<String,ArrayList<double[]>> myVariable = new LinkedHashMap<String,ArrayList<double[]>>(); // consider the opportunity to save varibale as float instead of double
-	
-	
-	@Description("")
+	public LinkedHashMap<String,ArrayList<double[]>> myVariable = new LinkedHashMap<String,ArrayList<double[]>>();
+
+
+
 	private int step=0;
-	
 	private ArrayList<double[]> tempVariable;
-	
-	
-	
+
+
+	/**
+	 * Store the output in LinkedHashMap<String,ArrayList<double[]>>
+	 */
 	@Execute
 	public void solve() {
 
 		if(step==0){
-			
+
 			tempVariable = new ArrayList<double[]>();
-		
+
 		}
 		
+
 		if( ((step-1)%writeFrequency) == 0 || step == 1) {
-//			System.out.println("Buffer1D clear");
 
 			myVariable.clear();
 
 		}
-		
+
 		if(doProcessBuffer== true) {
-			// water suction values
+
+			// temperature
 			tempVariable.add(inputVariable.get(0).clone());
 
-			// thetas
+			// theta_w
 			tempVariable.add(inputVariable.get(1).clone());
-			
-			// water volume
-			tempVariable.add(inputVariable.get(2).clone());
 
-			// Darcy velocities
+			// theta_i
+			tempVariable.add(inputVariable.get(2).clone());
+			
+			// internal energy
 			tempVariable.add(inputVariable.get(3).clone());
 
-			// Darcy velocities due to capillary gradient
+			// errorEnergy
+			tempVariable.add(inputVariable.get(3).clone());
+
+			// heat flux at the top of the  domain 
 			tempVariable.add(inputVariable.get(4).clone());
 
-			// Darcy velocities due to gravity gradient
+			// heat flux at the bottom of the  domain
 			tempVariable.add(inputVariable.get(5).clone());
 
-			// pore velocities 
-			tempVariable.add(inputVariable.get(6).clone());
-
-			// celerities
-			tempVariable.add(inputVariable.get(7).clone());
-
-			// kinematic ratio
-			tempVariable.add(inputVariable.get(8).clone());
-
-			//ETs i.e. transpired stressed water
-			tempVariable.add(inputVariable.get(9).clone());
-			
-			// errorVolume
-			tempVariable.add(inputVariable.get(10).clone());
-
-			// top boundary condition value
-			tempVariable.add(inputVariable.get(11).clone());
-
-			// bottom boundary condition value
-			tempVariable.add(inputVariable.get(12).clone());
-
-			// surface run-off
-			tempVariable.add(inputVariable.get(13).clone());
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
 
 			tempVariable.clear();
 		}
 		step++;
-		
-	}
 	
+
+	}
+
 
 }
