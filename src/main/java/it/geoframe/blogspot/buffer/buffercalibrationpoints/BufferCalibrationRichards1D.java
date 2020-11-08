@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.geoframe.blogspot.buffercalibrationpoints;
+package it.geoframe.blogspot.buffer.buffercalibrationpoints;
 import java.util.ArrayList;
 import java.util.HashMap;
 

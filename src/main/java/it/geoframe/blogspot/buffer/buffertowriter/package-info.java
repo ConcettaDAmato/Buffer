@@ -13,4 +13,4 @@
  * @author Niccolo` Tubini
  *
  */
-package it.geoframe.blogspot.buffertowriter;
+package it.geoframe.blogspot.buffer.buffertowriter;
