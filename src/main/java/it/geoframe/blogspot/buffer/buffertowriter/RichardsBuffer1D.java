@@ -109,21 +109,18 @@ public class RichardsBuffer1D {
 
 			// kinematic ratio
 			tempVariable.add(inputVariable.get(8).clone());
-
-			//ETs i.e. transpired stressed water
-			tempVariable.add(inputVariable.get(9).clone());
 			
 			// errorVolume
-			tempVariable.add(inputVariable.get(10).clone());
+			tempVariable.add(inputVariable.get(9).clone());
 
 			// top boundary condition value
-			tempVariable.add(inputVariable.get(11).clone());
+			tempVariable.add(inputVariable.get(10).clone());
 
 			// bottom boundary condition value
-			tempVariable.add(inputVariable.get(12).clone());
+			tempVariable.add(inputVariable.get(11).clone());
 
 			// surface run-off
-			tempVariable.add(inputVariable.get(13).clone());
+			tempVariable.add(inputVariable.get(12).clone());
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
 
