@@ -34,7 +34,7 @@ import oms3.annotations.*;
 @Status(Status.CERTIFIED)
 @License("General Public License Version 3 (GPLv3)")
 
-public class HeatDiffusionBufferWithSurfaceEnergyBudget1D {
+public class HeatDiffusionFreezingThawingBufferWithSurfaceEnergyBudget1D {
 
 	@Description("Output variables of the current time step")
 	@In 
@@ -92,41 +92,44 @@ public class HeatDiffusionBufferWithSurfaceEnergyBudget1D {
 			// temperature
 			tempVariable.add(inputVariable.get(0).clone());
 
-			// theta_w
+			// adimensional water content
 			tempVariable.add(inputVariable.get(1).clone());
 			
-			// internal energy
+			// adimensional ice content
 			tempVariable.add(inputVariable.get(2).clone());
 			
-			// diffusion heat flux
+			// internal energy
 			tempVariable.add(inputVariable.get(3).clone());
 			
-			// errorEnergy
+			// diffusion heat flux
 			tempVariable.add(inputVariable.get(4).clone());
+			
+			// errorEnergy
+			tempVariable.add(inputVariable.get(5).clone());
 
 			// air temperature 
-			tempVariable.add(inputVariable.get(5).clone());
-			
-			// Outgoing short-wave 
 			tempVariable.add(inputVariable.get(6).clone());
 			
-			// Incoming short-wave 
+			// Outgoing short-wave 
 			tempVariable.add(inputVariable.get(7).clone());
 			
-			// Outgoing long-wave 
+			// Incoming short-wave 
 			tempVariable.add(inputVariable.get(8).clone());
 			
-			// Incoming long-wave 
+			// Outgoing long-wave 
 			tempVariable.add(inputVariable.get(9).clone());
 			
-			// Sensible heat flux 
+			// Incoming long-wave 
 			tempVariable.add(inputVariable.get(10).clone());
 			
-			// actual latent heat flux 
+			// Sensible heat flux 
 			tempVariable.add(inputVariable.get(11).clone());
+			
+			// actual latent heat flux 
+			tempVariable.add(inputVariable.get(12).clone());
 
 			// heat flux at the bottom of the  domain
-			tempVariable.add(inputVariable.get(12).clone());
+			tempVariable.add(inputVariable.get(13).clone());
 
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());

@@ -102,13 +102,13 @@ public class FreezingThawingBuffer1D {
 			tempVariable.add(inputVariable.get(3).clone());
 
 			// errorEnergy
-			tempVariable.add(inputVariable.get(3).clone());
-
-			// heat flux at the top of the  domain 
 			tempVariable.add(inputVariable.get(4).clone());
 
-			// heat flux at the bottom of the  domain
+			// heat flux at the top of the  domain 
 			tempVariable.add(inputVariable.get(5).clone());
+
+			// heat flux at the bottom of the  domain
+			tempVariable.add(inputVariable.get(6).clone());
 
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
