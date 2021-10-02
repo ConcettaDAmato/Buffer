@@ -20,8 +20,10 @@
 package it.geoframe.blogspot.buffer.buffertowriter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import oms3.annotations.*;
 
@@ -35,154 +37,108 @@ import oms3.annotations.*;
 @License("General Public License Version 3 (GPLv3)")
 
 public class RichardsBuffer2D {
-	
-	@Description("Varible to store")
+
+	@Description("Variable to store")
 	@In 
 	@Unit ("-")
-	public ArrayList<double[]> inputVariable;
-	
+	public ArrayList<ArrayList<Double>> inputVariable;
+
 	@Description("Date at which the varible is computed")
 	@In 
 	@Unit ("YYYY-MM-DD HH:mm")
 	public String inputDate;
-	
-	@Description("Spatial coordinate: is the position of the centroids ")
-	@In 
-	@Unit ("m")
-	public Map<Integer, Double[]> inputSpatialCoordinate;
-	
+
 	@Description("Dual spatial coordinate: is the position of edges ")
 	@In 
 	@Unit ("m")
 	public Map<Integer, Double[]> inputDualSpatialCoordinate;
-	
-	
+
+	@Description("Boolean value controlling the buffer component")
+	@In 
+	@Unit ("-")
+	public boolean doProcessBuffer;
+
+	@In 
+	public int writeFrequency = 1;
+
 	@Description()
 	@Out
 	@Unit ()
-	public LinkedHashMap<String,ArrayList<double[]>> myVariable = new LinkedHashMap<String,ArrayList<double[]>>(); // consider the opportunity to save varibale as float instead of double
-	
-	@Description()
-	@Out
-	@Unit ()
-	public double[] mySpatialCoordinateX;
-	
-	@Description()
-	@Out
-	@Unit ()
-	public double[] mySpatialCoordinateZ;
-	
-	@Description()
-	@Out
-	@Unit ()
-	public double[] myDualSpatialCoordinateX;
-	
-	@Description()
-	@Out
-	@Unit ()
-	public double[] myDualSpatialCoordinateZ;
-	
+	public LinkedHashMap<String,ArrayList<ArrayList<Double>>> variable = new LinkedHashMap<String,ArrayList<ArrayList<Double>>>(); // consider the opportunity to save varibale as float instead of double
+
+
 	@Description("")
 	int step=0;
-	
-	ArrayList<double[]> tempVariable;
-	
-	
-	
+
+	private ArrayList<ArrayList<Double>> tempVariable;
+
+
+
 	@Execute
 	public void solve() {
-		//System.out.println("Buffer1D step:" + step);
+
 		if(step==0){
 
-			mySpatialCoordinateX = new double[inputSpatialCoordinate.size()+1];
-			mySpatialCoordinateZ = new double[inputSpatialCoordinate.size()+1];
-			
-			myDualSpatialCoordinateX = new double[inputDualSpatialCoordinate.size()+1];
-			myDualSpatialCoordinateZ = new double[inputDualSpatialCoordinate.size()+1];
-			
-			for(Integer i : inputSpatialCoordinate.keySet()) {
-				mySpatialCoordinateX[i] = inputSpatialCoordinate.get(i)[0];
-				mySpatialCoordinateZ[i] = inputSpatialCoordinate.get(i)[1];
-			};
-			
-			for(Integer i : inputDualSpatialCoordinate.keySet()) {
-				myDualSpatialCoordinateX[i] = inputDualSpatialCoordinate.get(i)[0];
-				myDualSpatialCoordinateZ[i] = inputDualSpatialCoordinate.get(i)[1];
-				
-//				System.out.println(myDualSpatialCoordinateX[i] + "  " + myDualSpatialCoordinateZ[i]);
-			};
-
-//					myDualSpatialCoordinate = ???;
-
-			tempVariable = new ArrayList<double[]>();
-			//System.out.println(mySpatialCoordinate.toString());
+			tempVariable = new ArrayList<ArrayList<Double>>();
 
 		}
-		
-		
-		// psiIC
-		tempVariable.add(inputVariable.get(0).clone());
-		
-		// water suction values
-		tempVariable.add(inputVariable.get(1).clone());
-		
-		// thetas
-		tempVariable.add(inputVariable.get(2).clone());
-		
-		// saturation degree
-		tempVariable.add(inputVariable.get(3).clone());
-		
-		// Darcy velocities
-		tempVariable.add(inputVariable.get(4).clone());
-//		for(int i=0; i<inputVariable.get(2).length; i++) {
-//			System.out.println(inputVariable.get(2)[i]);
-//		}
-//		System.out.println("\\\\\\\\\\\\ \n\n");
-//		// Darcy velocities x component
-		tempVariable.add(inputVariable.get(5).clone());
-//		for(int i=0; i<inputVariable.get(3).length; i++) {
-//			System.out.println(inputVariable.get(3)[i]);
-//		}
-//		System.out.println("\\\\\\\\\\\\ \n\n");
-		// Darcy velocities z component
-		tempVariable.add(inputVariable.get(6).clone());
-//		for(int i=0; i<inputVariable.get(4).length; i++) {
-//			System.out.println(inputVariable.get(4)[i]);
-//		}		
-//		// Darcy velocities due to capillary gradient
-//		tempVariable.add(inputVariable.get(4).clone());
-//		
-//		// Darcy velocities due to gravity gradient
-//		tempVariable.add(inputVariable.get(5).clone());
-//		
-//		// pore velocities 
-//		tempVariable.add(inputVariable.get(6).clone());
-//		
-//		// celerities
-//		tempVariable.add(inputVariable.get(7).clone());
-//		
-//		// kinematic ratio
-//		tempVariable.add(inputVariable.get(8).clone());
-//		
-//		// errorVolume
-//		tempVariable.add(inputVariable.get(9).clone());
-//		
-//		// top boundary condition value
-//		tempVariable.add(inputVariable.get(10).clone());
-//		
-//		// bottom boundary condition value
-//		tempVariable.add(inputVariable.get(11).clone());
-//		
-//		// surface run-off
-//		tempVariable.add(inputVariable.get(12).clone());
 
-		myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
-		//System.out.println(myVariable.size() +"       "+ myVariable.keySet());
-		//System.out.println(myVariable.toString());
-		tempVariable.clear();
+		if( ((step-1)%writeFrequency) == 0 || step == 1) {
+
+			variable.clear();
+
+		}
+
+
+		if(doProcessBuffer== true) {
+
+			// water suction values
+			tempVariable.add(new ArrayList<Double>(inputVariable.get(0)));
+
+			// water content
+			tempVariable.add(new ArrayList<Double>(inputVariable.get(1)));
+
+			// water volume
+			tempVariable.add(new ArrayList<Double>(inputVariable.get(2)));
+
+			// saturation degree
+			tempVariable.add(new ArrayList<Double>(inputVariable.get(3)));
+
+			// Darcy velocities
+			tempVariable.add(new ArrayList<Double>(inputVariable.get(4)));
+
+			// Darcy velocities x
+			tempVariable.add(new ArrayList<Double>(inputVariable.get(5)));
+			
+			// Darcy velocities z
+			tempVariable.add(new ArrayList<Double>(inputVariable.get(6)));
+
+			// error volume
+			tempVariable.add(new ArrayList<Double>(inputVariable.get(7)));
+
+//			Iterator it;
+//			//			variable.put(inputDate, new ArrayList<ArrayList<Double>>(tempVariable.clone()));
+//			it = variable.entrySet().iterator();
+//			while (it.hasNext()) {
+//				Entry<String, ArrayList<ArrayList<Double>>> entry = (Entry<String, ArrayList<ArrayList<Double>>>) it.next();
+//			
+//				System.out.println(entry.getKey() + " psi[1] "+entry.getValue().get(0).get(1)+ " theta[1] "+entry.getValue().get(1).get(1));
+//			}	
+			
+			
+			variable.put(inputDate, new ArrayList<ArrayList<Double>>(tempVariable));
+//
+//			System.out.println("Buffer "+inputDate);
+//			System.out.println("psi[1] "+variable.get(inputDate).get(0).get(1));//+" "+variable.get(inputDate).get(0).get(1000)+" "+variable.get(inputDate).get(0).get(2000)+" "+variable.get(inputDate).get(0).get(4000)+" "+variable.get(inputDate).get(0).get(5000));
+//
+//			System.out.println("theta[1] "+variable.get(inputDate).get(1).get(1));//+" "+variable.get(inputDate).get(1).get(1000)+" "+variable.get(inputDate).get(1).get(2000)+" "+variable.get(inputDate).get(1).get(4000)+" "+variable.get(inputDate).get(1).get(5000));
+
+			tempVariable.clear();
+		}
+
 		step++;
-		
+
 	}
-	
+
 
 }

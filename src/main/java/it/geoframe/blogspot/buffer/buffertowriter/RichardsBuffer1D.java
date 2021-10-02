@@ -91,36 +91,39 @@ public class RichardsBuffer1D {
 			
 			// water volume
 			tempVariable.add(inputVariable.get(2).clone());
-
-			// Darcy velocities
+			
+			// saturation degree
 			tempVariable.add(inputVariable.get(3).clone());
 
-			// Darcy velocities due to capillary gradient
+			// Darcy velocities
 			tempVariable.add(inputVariable.get(4).clone());
 
-			// Darcy velocities due to gravity gradient
+			// Darcy velocities due to capillary gradient
 			tempVariable.add(inputVariable.get(5).clone());
 
-			// pore velocities 
+			// Darcy velocities due to gravity gradient
 			tempVariable.add(inputVariable.get(6).clone());
 
-			// celerities
+			// pore velocities 
 			tempVariable.add(inputVariable.get(7).clone());
 
-			// kinematic ratio
+			// celerities
 			tempVariable.add(inputVariable.get(8).clone());
+
+			// kinematic ratio
+			tempVariable.add(inputVariable.get(9).clone());
 			
 			// errorVolume
-			tempVariable.add(inputVariable.get(9).clone());
-
-			// top boundary condition value
 			tempVariable.add(inputVariable.get(10).clone());
 
-			// bottom boundary condition value
+			// top boundary condition value
 			tempVariable.add(inputVariable.get(11).clone());
 
-			// surface run-off
+			// bottom boundary condition value
 			tempVariable.add(inputVariable.get(12).clone());
+
+			// surface run-off
+			tempVariable.add(inputVariable.get(13).clone());
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
 
