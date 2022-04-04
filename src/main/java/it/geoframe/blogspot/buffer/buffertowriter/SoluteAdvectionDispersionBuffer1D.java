@@ -26,14 +26,14 @@ import oms3.annotations.*;
 
 @Description("Buffer for 1D Richards simulation.")
 @Documentation("")
-@Author(name = "Niccolo' Tubini, Riccardo Rigon", contact = "tubini.niccolo@gmail.com")
+@Author(name = "Concetta D'Amato, Niccolo' Tubini, Riccardo Rigon", contact = "tubini.niccolo@gmail.com")
 @Keywords("Hydrology, Richards, Infiltration")
 //@Label(JGTConstants.HYDROGEOMORPHOLOGY)
 //@Name("shortradbal")
 //@Status(Status.CERTIFIED)
 @License("General Public License Version 3 (GPLv3)")
 
-public class RichardsLysimeterBuffer1D {
+public class SoluteAdvectionDispersionBuffer1D {
 	
 	@Description("Variable to store")
 	@In 
@@ -95,34 +95,34 @@ public class RichardsLysimeterBuffer1D {
 			// Darcy velocities
 			tempVariable.add(inputVariable.get(3).clone());
 
-			// Darcy velocities due to capillary gradient
+			// ETs i.e. transpired stressed water
 			tempVariable.add(inputVariable.get(4).clone());
 
-			// Darcy velocities due to gravity gradient
+			// Concentrations
 			tempVariable.add(inputVariable.get(5).clone());
 
-			// pore velocities 
+			// ThetaConcentrations
 			tempVariable.add(inputVariable.get(6).clone());
 
-			// celerities
+			// Solute Flux
 			tempVariable.add(inputVariable.get(7).clone());
 
-			// kinematic ratio
+			// Dispersion solute flux
 			tempVariable.add(inputVariable.get(8).clone());
 
-			//ETs i.e. transpired stressed water
+			// Advection solute fux
 			tempVariable.add(inputVariable.get(9).clone());
 			
-			// errorVolume
+			// error in ThetaConcentrations
 			tempVariable.add(inputVariable.get(10).clone());
 
-			// top boundary condition value
+			// errorVolume
 			tempVariable.add(inputVariable.get(11).clone());
 
-			// bottom boundary condition value
+			// Average solute concentrations
 			tempVariable.add(inputVariable.get(12).clone());
 
-			// surface run-off
+			// Average solute ThetaConcentrations
 			tempVariable.add(inputVariable.get(13).clone());
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
