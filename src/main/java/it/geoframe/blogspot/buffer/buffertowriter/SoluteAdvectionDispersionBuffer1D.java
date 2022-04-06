@@ -101,7 +101,7 @@ public class SoluteAdvectionDispersionBuffer1D {
 			// Concentrations
 			tempVariable.add(inputVariable.get(5).clone());
 
-			// ThetaConcentrations
+			// WaterVolumeConcentrationsNew
 			tempVariable.add(inputVariable.get(6).clone());
 
 			// Solute Flux
@@ -113,7 +113,7 @@ public class SoluteAdvectionDispersionBuffer1D {
 			// Advection solute fux
 			tempVariable.add(inputVariable.get(9).clone());
 			
-			// error in ThetaConcentrations
+			// error in WaterVolumeConcentration
 			tempVariable.add(inputVariable.get(10).clone());
 
 			// errorVolume
@@ -122,7 +122,7 @@ public class SoluteAdvectionDispersionBuffer1D {
 			// Average solute concentrations
 			tempVariable.add(inputVariable.get(12).clone());
 
-			// Average solute ThetaConcentrations
+			// Average WaterVolumeSoluteConcentration
 			tempVariable.add(inputVariable.get(13).clone());
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
