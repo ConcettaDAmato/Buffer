@@ -33,7 +33,7 @@ import oms3.annotations.*;
 //@Status(Status.CERTIFIED)
 @License("General Public License Version 3 (GPLv3)")
 
-public class SoluteAdvectionDispersionBuffer1D {
+public class GEOSPACESoluteADEBuffer1D {
 	
 	@Description("Variable to store")
 	@In 
