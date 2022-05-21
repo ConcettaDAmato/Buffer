@@ -104,26 +104,33 @@ public class GEOSPACESoluteADEBuffer1D {
 			// WaterVolumeConcentrationsNew
 			tempVariable.add(inputVariable.get(6).clone());
 
-			// Solute Flux
+			// soluteSourcesSinksTerm
 			tempVariable.add(inputVariable.get(7).clone());
+			
+			// sumSoluteSourceSinkTerm
+			tempVariable.add(inputVariable.get(8).clone());
+			
+			
+			// timeVariationWaterVolumesConcentration
+			tempVariable.add(inputVariable.get(9).clone());
 
 			// Dispersion solute flux
-			tempVariable.add(inputVariable.get(8).clone());
-
-			// Advection solute fux
-			tempVariable.add(inputVariable.get(9).clone());
-			
-			// error in WaterVolumeConcentration
 			tempVariable.add(inputVariable.get(10).clone());
 
-			// errorVolume
+			// Advection solute fux
 			tempVariable.add(inputVariable.get(11).clone());
-
-			// Average solute concentrations
+			
+			// error in WaterVolumeConcentration
 			tempVariable.add(inputVariable.get(12).clone());
 
-			// Average WaterVolumeSoluteConcentration
+			// errorVolume
 			tempVariable.add(inputVariable.get(13).clone());
+
+			// Average solute concentrations
+			tempVariable.add(inputVariable.get(14).clone());
+
+			// Average WaterVolumeSoluteConcentration
+			tempVariable.add(inputVariable.get(15).clone());
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
 
