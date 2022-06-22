@@ -25,12 +25,18 @@ repositories {
     
     jcenter()
     mavenCentral()
+    
+        mavenCentral()
+    
+    flatDir {
+    	dirs 'lib'
+	}
         
 }
 
 dependencies {
 
-
+	compile name: 'opencsv-3.8'
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
     

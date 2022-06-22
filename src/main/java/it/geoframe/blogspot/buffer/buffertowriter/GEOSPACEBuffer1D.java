@@ -33,12 +33,22 @@ import oms3.annotations.*;
 //@Status(Status.CERTIFIED)
 @License("General Public License Version 3 (GPLv3)")
 
-public class RichardsLysimeterBuffer1D {
+public class GEOSPACEBuffer1D {
 	
 	@Description("Variable to store")
 	@In 
 	@Unit ("-")
-	public ArrayList<double[]> inputVariable;
+	public ArrayList<double[]> inputVariableRichards;
+	
+	@Description("Variable to store")
+	@In 
+	@Unit ("-")
+	public ArrayList<double[]> inputVariableStressFactor;
+	
+	@Description("Variable to store")
+	@In 
+	@Unit ("-")
+	public ArrayList<double[]> inputVariableBroker;
 	
 	@Description("Date at which the varible is computed")
 	@In 
@@ -84,46 +94,67 @@ public class RichardsLysimeterBuffer1D {
 		
 		if(doProcessBuffer== true) {
 			// water suction values
-			tempVariable.add(inputVariable.get(0).clone());
+			tempVariable.add(inputVariableRichards.get(0).clone());
 
 			// thetas
-			tempVariable.add(inputVariable.get(1).clone());
+			tempVariable.add(inputVariableRichards.get(1).clone());
 			
 			// water volume
-			tempVariable.add(inputVariable.get(2).clone());
+			tempVariable.add(inputVariableRichards.get(2).clone());
 
 			// Darcy velocities
-			tempVariable.add(inputVariable.get(3).clone());
+			tempVariable.add(inputVariableRichards.get(3).clone());
 
 			// Darcy velocities due to capillary gradient
-			tempVariable.add(inputVariable.get(4).clone());
+			tempVariable.add(inputVariableRichards.get(4).clone());
 
 			// Darcy velocities due to gravity gradient
-			tempVariable.add(inputVariable.get(5).clone());
+			tempVariable.add(inputVariableRichards.get(5).clone());
 
 			// pore velocities 
-			tempVariable.add(inputVariable.get(6).clone());
+			tempVariable.add(inputVariableRichards.get(6).clone());
 
 			// celerities
-			tempVariable.add(inputVariable.get(7).clone());
+			tempVariable.add(inputVariableRichards.get(7).clone());
 
 			// kinematic ratio
-			tempVariable.add(inputVariable.get(8).clone());
+			tempVariable.add(inputVariableRichards.get(8).clone());
 
 			//ETs i.e. transpired stressed water
-			tempVariable.add(inputVariable.get(9).clone());
+			tempVariable.add(inputVariableRichards.get(9).clone());
 			
 			// errorVolume
-			tempVariable.add(inputVariable.get(10).clone());
+			tempVariable.add(inputVariableRichards.get(10).clone());
 
 			// top boundary condition value
-			tempVariable.add(inputVariable.get(11).clone());
+			tempVariable.add(inputVariableRichards.get(11).clone());
 
 			// bottom boundary condition value
-			tempVariable.add(inputVariable.get(12).clone());
+			tempVariable.add(inputVariableRichards.get(12).clone());
 
 			// surface run-off
-			tempVariable.add(inputVariable.get(13).clone());
+			tempVariable.add(inputVariableRichards.get(13).clone());
+			
+			// water stress factor for each control volume g
+			tempVariable.add(inputVariableStressFactor.get(0).clone());
+			
+			// water stress factor GnT[0]
+			tempVariable.add(inputVariableStressFactor.get(1).clone());
+						
+			// evaporation water stress factor GnE[0]
+			tempVariable.add(inputVariableStressFactor.get(2).clone());
+						
+			// stress factor sun 
+			tempVariable.add(inputVariableStressFactor.get(3).clone());
+						
+			// stress factor shade 
+			tempVariable.add(inputVariableStressFactor.get(4).clone());
+			
+			// evapotranspiration from each control volume 
+			tempVariable.add(inputVariableBroker.get(0).clone());
+						
+			
+			
 
 			myVariable.put(inputDate,(ArrayList<double[]>) tempVariable.clone());
 
