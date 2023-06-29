@@ -35,17 +35,17 @@ import oms3.annotations.*;
 
 public class GEOSPACEBuffer1D {
 	
-	@Description("Variable to store")
+	@Description("Variable to store from WHETGEO")
 	@In 
 	@Unit ("-")
 	public ArrayList<double[]> inputVariableRichards;
 	
-	@Description("Variable to store")
+	@Description("Variable to store from GEOET")
 	@In 
 	@Unit ("-")
 	public ArrayList<double[]> inputVariableStressFactor;
 	
-	@Description("Variable to store")
+	@Description("Variable to store from BrokerGEO")
 	@In 
 	@Unit ("-")
 	public ArrayList<double[]> inputVariableBroker;
@@ -93,65 +93,75 @@ public class GEOSPACEBuffer1D {
 		}
 		
 		if(doProcessBuffer== true) {
-			// water suction values
+			//0 water suction values
 			tempVariable.add(inputVariableRichards.get(0).clone());
 
-			// thetas
+			//1 thetas
 			tempVariable.add(inputVariableRichards.get(1).clone());
 			
-			// water volume
+			//2 water volume
 			tempVariable.add(inputVariableRichards.get(2).clone());
 
-			// Darcy velocities
+			//3 Darcy velocities
 			tempVariable.add(inputVariableRichards.get(3).clone());
 
-			// Darcy velocities due to capillary gradient
+			//4 Darcy velocities due to capillary gradient
 			tempVariable.add(inputVariableRichards.get(4).clone());
 
-			// Darcy velocities due to gravity gradient
+			//5 Darcy velocities due to gravity gradient
 			tempVariable.add(inputVariableRichards.get(5).clone());
 
-			// pore velocities 
+			//6 pore velocities 
 			tempVariable.add(inputVariableRichards.get(6).clone());
 
-			// celerities
+			//7 celerities
 			tempVariable.add(inputVariableRichards.get(7).clone());
 
-			// kinematic ratio
+			//8 kinematic ratio
 			tempVariable.add(inputVariableRichards.get(8).clone());
 
-			//ETs i.e. transpired stressed water
+			//9 ETs i.e. transpired stressed water
 			tempVariable.add(inputVariableRichards.get(9).clone());
 			
-			// errorVolume
+			//10 errorVolume
 			tempVariable.add(inputVariableRichards.get(10).clone());
 
-			// top boundary condition value
+			//11 top boundary condition value
 			tempVariable.add(inputVariableRichards.get(11).clone());
 
-			// bottom boundary condition value
+			//12 bottom boundary condition value
 			tempVariable.add(inputVariableRichards.get(12).clone());
 
-			// surface run-off
+			//13 surface run-off
 			tempVariable.add(inputVariableRichards.get(13).clone());
 			
-			// water stress factor for each control volume g
+			//14 water stress factor for each control volume g
 			tempVariable.add(inputVariableStressFactor.get(0).clone());
 			
-			// water stress factor GnT[0]
+			//15 water stress factor GnT[0]
 			tempVariable.add(inputVariableStressFactor.get(1).clone());
 						
-			// evaporation water stress factor GnE[0]
+			//16 evaporation water stress factor GnE[0]
 			tempVariable.add(inputVariableStressFactor.get(2).clone());
 						
-			// stress factor sun 
+			//17 stress factor sun 
 			tempVariable.add(inputVariableStressFactor.get(3).clone());
 						
-			// stress factor shade 
+			//18 stress factor shade 
 			tempVariable.add(inputVariableStressFactor.get(4).clone());
 			
-			// evapotranspiration from each control volume 
+			//19 evapotranspiration from each control volume 
 			tempVariable.add(inputVariableBroker.get(0).clone());
+			
+			//20 root density from each control volume 
+			tempVariable.add(inputVariableBroker.get(1).clone());
+			
+			//21 transpiration from each control volume 
+			tempVariable.add(inputVariableBroker.get(2).clone());
+			
+			//22 evaporation from each control volume 
+			tempVariable.add(inputVariableBroker.get(3).clone());
+						
 						
 			
 			
